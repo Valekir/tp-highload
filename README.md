@@ -28,6 +28,7 @@ MAU - 522М
 | Всего создано досок        | 10 млрд                                  |
 | Время в приложении в месяц | 1 час 49 минут                           |
 | Время в приложении в день  | 2 минуты 11 секунд                       |
+| Рост аудитории             | 11% с 2024 по 2025 год
 
 ## Источники
 
@@ -36,3 +37,6 @@ https://s204.q4cdn.com/369458543/files/doc_earnings/2025/q2/presentation/2025-Q2
 
 Статистические данные:  
 https://adamconnell.me/pinterest-statistics/  
+
+Pinterest Investor Relations:
+https://investor.pinterestinc.com/news-and-events/press-releases/press-releases-details/2025/Pinterest-Announces-Second-Quarter-2025-Results-Delivers-17-Revenue-Growth-and-Record-Users/default.aspx
