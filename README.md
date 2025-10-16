@@ -132,7 +132,7 @@ NGINX обеспечивает:
 
 ## Логическая схема БД
 
-![Диаграмма без названия](https://github.com/user-attachments/assets/42ec032d-7f8a-42f1-8ead-ed3976fe913a)
+![Диаграмма без названия](https://github.com/user-attachments/assets/7ffe25e1-d13c-41c8-b79e-a8813b8e5e81)
 
 ### Описание таблиц и нагрузок
 
@@ -148,8 +148,23 @@ NGINX обеспечивает:
 | Pin_Analytics | Аналитика просмотров   | 500 Б         | 30000      | 100000     | Eventual        | Агрегация данных         |
 | Follows       | Подписки пользователей | 100 Б         | 20000      | 200        | Eventual        | Двунаправленные связи    |
 | Search_Index  | Поисковый индекс       | 2 Кб          | 100000     | 5000       | Eventual        | Векторные эмбеддинги     |
-| Cache         | Кэш пинов              | 2 Кб          | 300000     | 100000     | Eventual        | TTL-инвалидация          |
+| Search_Cache  | Кэш поиска             | 2 Кб          | 300000     | 100000     | Eventual        | TTL-инвалидация          |
 
+
+## Физическая схема БД
+
+| Таблица       | СУБД          | Индексы                     | Обоснование                            |
+| Users         | PostgreSQL    | user_id, email, username    | Требования к консистентности           |
+| Pins          | PostgreSQL    | pin_id, user_id, created_at | Требование к консистентности           |
+| Boards        | PostgreSQL    | board_id, user_id           | Требование к консистентности           |
+| Tags          | PostgreSQL    | tag_id, tag, usage_count    | Требование к консистентности           |
+| Pin_Boards    | Cassandra     | pin_id, board_id            | Высокая скорость записи, кластеризация |
+| Pin_Tags      | Cassandra     | pin_id, tag_id              | Высокая скорость записи, кластеризация |
+| Pin_Likes     | Cassandra     | pin_id, user_id             | Высокая скорость записи, кластеризация |
+| Pin_Analytics | Clickhouse    | pin_id, date                | Аналитические запросы, агрегация       |
+| Follows       | PostgreSQL    | follower_id, following_id   | Сложные JOIN для рекомендаций          |
+| Search_Index  | Elasticsearch | по всем полям               | Полнотекстовый поиск                   |
+| Search_Cache  | Redis         | -                           | Быстрый доступ к кешу, TTL инвалидация |
 
 ## Источники
 Распределение аудитории:  
