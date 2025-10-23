@@ -171,7 +171,7 @@ NGINX обеспечивает:
 
 | Таблица       | Схема шардинга     | Количество реплик |
 |---------------|--------------------|-------------------|
-| Users         | user_id (hash)     | 2                 |
+| Users         | user_id (range)    | 2                 |
 | Pins          | pin_id (range)     | 2                 |
 | Boards        | user_id (hash)     | 2                 |
 | Tags          | tag_id (hash)      | 2                 |
