@@ -153,19 +153,19 @@ NGINX обеспечивает:
 
 ## Физическая схема БД
 
-| Таблица       | СУБД          | Индексы                     | Обоснование                            |
-|---------------|---------------|-----------------------------|----------------------------------------|
-| Users         | PostgreSQL    | user_id, email, username    | Требования к консистентности           |
-| Pins          | PostgreSQL    | pin_id, user_id, created_at | Требование к консистентности           |
-| Boards        | PostgreSQL    | board_id, user_id           | Требование к консистентности           |
-| Tags          | PostgreSQL    | tag_id, tag, usage_count    | Требование к консистентности           |
-| Pin_Boards    | Cassandra     | pin_id, board_id            | Высокая скорость записи, кластеризация |
-| Pin_Tags      | Cassandra     | pin_id, tag_id              | Высокая скорость записи, кластеризация |
-| Pin_Likes     | Cassandra     | pin_id, user_id             | Высокая скорость записи, кластеризация |
-| Pin_Analytics | Clickhouse    | pin_id, date                | Аналитические запросы, агрегация       |
-| Follows       | PostgreSQL    | follower_id, following_id   | Сложные JOIN для рекомендаций          |
-| Search_Index  | Elasticsearch | по всем полям               | Полнотекстовый поиск                   |
-| Search_Cache  | Redis         | -                           | Быстрый доступ к кешу, TTL инвалидация |
+| Таблица       | СУБД          | Индексы                     | Балансировка нагрузки |
+|---------------|---------------|-----------------------------|-----------------------|
+| Users         | PostgreSQL    | user_id, email, username    | pgbouncer             |
+| Pins          | PostgreSQL    | pin_id, user_id, created_at | pgbouncer             |
+| Boards        | PostgreSQL    | board_id, user_id           | pgbouncer             |
+| Tags          | PostgreSQL    | tag_id, tag, usage_count    | pgbouncer             |
+| Pin_Boards    | Cassandra     | pin_id, board_id            | partition key         |
+| Pin_Tags      | Cassandra     | pin_id, tag_id              | partition key         |
+| Pin_Likes     | Cassandra     | pin_id, user_id             | partition key         |
+| Pin_Analytics | Clickhouse    | pin_id, date                | distributed движок    |
+| Follows       | PostgreSQL    | follower_id, following_id   | pgbouncer             |
+| Search_Index  | Elasticsearch | по всем полям               | coordinating nodes    |
+| Search_Cache  | Redis         | -                           | redis cluster         |
 
 ### Схема шардинга и репликации
 
