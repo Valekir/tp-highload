@@ -166,7 +166,7 @@ NGINX обеспечивает:
 | Follows       | PostgreSQL    | follower_id, following_id   | pgbouncer             |
 | Search_Index  | Elasticsearch | по всем полям               | coordinating nodes    |
 | Search_Cache  | Redis         | -                           | redis cluster         |
-| Session       | PostgreSQL    | user_id                     | pgbouncer             |
+| Session       | Redis         | user_id                     | redis cluster         |
 
 ### Схема шардинга и репликации
 
