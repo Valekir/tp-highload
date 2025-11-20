@@ -149,7 +149,8 @@ NGINX обеспечивает:
 | Follows       | Подписки пользователей | 100 Б         | 20000      | 200        | Eventual        | Двунаправленные связи    |
 | Search_Index  | Поисковый индекс       | 2 Кб          | 100000     | 5000       | Eventual        | Векторные эмбеддинги     |
 | Search_Cache  | Кэш поиска             | 2 Кб          | 300000     | 100000     | Eventual        | TTL-инвалидация          |
-
+| Feed_Cache    | Кэш ленты              | 2 Кб          | 300000     | 100000     | Eventual        | TTL-инвалидация          |
+| Session       | Сессии пользователей   | 1 Кб          | 10000      | 5000       | Eventual        |                          |
 
 ## Физическая схема БД
 
@@ -166,6 +167,7 @@ NGINX обеспечивает:
 | Follows       | PostgreSQL    | follower_id, following_id   | pgbouncer             |
 | Search_Index  | Elasticsearch | по всем полям               | coordinating nodes    |
 | Search_Cache  | Redis         | -                           | redis cluster         |
+| Feed_Cache    | Redis         | -                           | redis cluster         |
 | Session       | Redis         | user_id                     | redis cluster         |
 
 ### Схема шардинга и репликации
